@@ -7,6 +7,7 @@ from django.core.paginator import (
 from django.core.mail import send_mail
 from django.views.generic import ListView
 from django.views.decorators.http import require_POST
+from taggit.models import Tag
 from .models import (
     Post,
     Comment
@@ -17,8 +18,12 @@ from .forms import (
 )
 
 
-def post_list(request):
+def post_list(request, tag_slug=None):
     posts_qs = Post.published.all()
+    tag = None
+    if tag_slug:
+        tag = get_object_or_404(Tag, slug=tag_slug)
+        posts_qs = posts_qs.filter(tags__in=[tag])
     paginator = Paginator(posts_qs, 3)
     page_number = request.GET.get('page', 1)
     try:
@@ -31,7 +36,10 @@ def post_list(request):
     return render(
         request,
         'blog/post/list.html',
-        {'posts': posts}
+        {
+            'posts': posts,
+            'tag': tag
+        }
     )
 
 
