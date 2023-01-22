@@ -27,4 +27,5 @@ urlpatterns = [
         name='post-comment'
     ),
     path('feed/', LatestPostsFeed(), name='post-feed'),
+    path('search/', views.post_search, name='post-search'),
 ]
