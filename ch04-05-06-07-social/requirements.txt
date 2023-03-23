@@ -4,4 +4,4 @@ social-auth-app-django
 werkzeug
 django-extensions
 pyOpenSSL
-
+requests
