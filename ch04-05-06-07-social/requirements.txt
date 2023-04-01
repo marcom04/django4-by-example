@@ -6,3 +6,5 @@ django-extensions
 pyOpenSSL
 requests
 easy-thumbnails
+django-debug-toolbar
+redis
